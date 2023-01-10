@@ -1,13 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Flex, Spacer } from "react-native-flex-layout";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeScreen from "./Screens/Home";
 import SettingsScreen from "./Screens/Settings";
 import ManageScreen from "./Screens/Manage";
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
     return (
@@ -16,17 +15,41 @@ export default function App() {
                 <Tab.Screen
                     name="Home"
                     component={HomeScreen}
-                    options={{ header: () => null }}
+                    options={{
+                        header: () => null,
+                        tabBarIcon: () => (
+                            <MaterialCommunityIcons
+                                name="home"
+                                size={26}
+                            />
+                        ),
+                    }}
                 />
                 <Tab.Screen
                     name="Manage"
                     component={ManageScreen}
-                    options={{ header: () => null }}
+                    options={{
+                        header: () => null,
+                        tabBarIcon: () => (
+                            <MaterialCommunityIcons
+                                name="tools"
+                                size={26}
+                            />
+                        ),
+                    }}
                 />
                 <Tab.Screen
                     name="Settings"
                     component={SettingsScreen}
-                    options={{ header: () => null }}
+                    options={{
+                        header: () => null,
+                        tabBarIcon: () => (
+                            <MaterialCommunityIcons
+                                name="cog"
+                                size={26}
+                            />
+                        ),
+                    }}
                 />
             </Tab.Navigator>
         </NavigationContainer>

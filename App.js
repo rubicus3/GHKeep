@@ -5,10 +5,12 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import HomeScreen from "./Screens/Home";
 import SettingsScreen from "./Screens/Settings";
 import ManageScreen from "./Screens/Manage";
+import { useEffect } from "react";
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
+    const onStart = () => useEffect();
     return (
         <NavigationContainer>
             <Tab.Navigator>
@@ -18,10 +20,7 @@ export default function App() {
                     options={{
                         header: () => null,
                         tabBarIcon: () => (
-                            <MaterialCommunityIcons
-                                name="home"
-                                size={26}
-                            />
+                            <MaterialCommunityIcons name="home" size={26} />
                         ),
                     }}
                 />
@@ -31,10 +30,7 @@ export default function App() {
                     options={{
                         header: () => null,
                         tabBarIcon: () => (
-                            <MaterialCommunityIcons
-                                name="tools"
-                                size={26}
-                            />
+                            <MaterialCommunityIcons name="tools" size={26} />
                         ),
                     }}
                 />
@@ -44,10 +40,7 @@ export default function App() {
                     options={{
                         header: () => null,
                         tabBarIcon: () => (
-                            <MaterialCommunityIcons
-                                name="cog"
-                                size={26}
-                            />
+                            <MaterialCommunityIcons name="cog" size={26} />
                         ),
                     }}
                 />

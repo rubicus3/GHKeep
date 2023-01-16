@@ -18,7 +18,7 @@ export default function App() {
                     name="Home"
                     component={HomeScreen}
                     options={{
-                        header: () => null,
+                        // header: () => null,
                         tabBarIcon: () => (
                             <MaterialCommunityIcons name="home" size={26} />
                         ),

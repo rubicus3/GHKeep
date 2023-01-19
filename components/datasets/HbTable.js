@@ -16,12 +16,12 @@ const HbDataTable = ({ data }) => {
 
             <DataTable.Row>
                 <DataTable.Cell>Hb%</DataTable.Cell>
-                <DataTable.Cell>{data[0]}</DataTable.Cell>
-                <DataTable.Cell>{data[1]}</DataTable.Cell>
-                <DataTable.Cell>{data[2]}</DataTable.Cell>
-                <DataTable.Cell>{data[3]}</DataTable.Cell>
-                <DataTable.Cell>{data[4]}</DataTable.Cell>
-                <DataTable.Cell>{data[5]}</DataTable.Cell>
+                <DataTable.Cell>{data[0]}%</DataTable.Cell>
+                <DataTable.Cell>{data[1]}%</DataTable.Cell>
+                <DataTable.Cell>{data[2]}%</DataTable.Cell>
+                <DataTable.Cell>{data[3]}%</DataTable.Cell>
+                <DataTable.Cell>{data[4]}%</DataTable.Cell>
+                <DataTable.Cell>{data[5]}%</DataTable.Cell>
             </DataTable.Row>
         </DataTable>
     );

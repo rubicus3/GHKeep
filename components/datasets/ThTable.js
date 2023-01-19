@@ -1,7 +1,7 @@
 import React from "react";
 import { DataTable } from "react-native-paper";
 
-const THTable = ({ tData, hData }) => {
+const ThTable = ({ tData, hData }) => {
     return (
         <DataTable>
             <DataTable.Header>
@@ -33,4 +33,4 @@ const THTable = ({ tData, hData }) => {
     );
 };
 
-export default THTable;
+export default ThTable;

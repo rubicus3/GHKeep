@@ -4,17 +4,10 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import HomeScreen from "./screens/Home";
 import SettingsScreen from "./screens/Settings";
 import ManageScreen from "./screens/Manage";
-import { useEffect } from "react";
-import { gfdsfsdsfd } from "./Api";
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
-
-    const onStart = useEffect(() => {
-        gfdsfsdsfd()
-    })
-
     return (
         <NavigationContainer>
             <Tab.Navigator>

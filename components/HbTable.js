@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { DataTable } from "react-native-paper";
 
-const HbDataTable = ({ data }) => {
+const HbTable = ({ data }) => {
     return (
         <View
             style={{
@@ -36,4 +36,4 @@ const HbDataTable = ({ data }) => {
     );
 };
 
-export default HbDataTable;
+export default HbTable;

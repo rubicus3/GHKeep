@@ -3,19 +3,20 @@ import { Dimensions, View } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { Text } from "react-native-paper";
 
-const HumidityGraph = ({id=1, data = [60, 36, 70, 50, 26] }) => {
+const ThGraph = ({
+    suffix = "",
+    id = 1,
+    data = [60, 36, 70, 50, 26],
+    time = ["19:40", "19:45", "19:50", "19:55", "20:00"],
+}) => {
     return (
         <View>
-            <Text variant="titleMedium">      Датчик {id}</Text>
+            <Text variant="titleMedium" style={{ marginLeft: 15 }}>
+                Датчик {id}
+            </Text>
             <LineChart
                 data={{
-                    labels: [
-                        "19:40",
-                        "19:45",
-                        "19:50",
-                        "19:55",
-                        "20:00",
-                    ],
+                    labels: time,
                     datasets: [
                         {
                             data: data,
@@ -52,4 +53,4 @@ const HumidityGraph = ({id=1, data = [60, 36, 70, 50, 26] }) => {
     );
 };
 
-export default HumidityGraph;
+export default ThGraph;

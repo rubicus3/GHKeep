@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
-import { Button } from "react-native-paper";
-// import axios from "axios";
+import { Text, View, ScrollView } from "react-native";
+import { Button, List } from "react-native-paper";
+import { gfdsfsdsfd } from "../Api";
 
 export default function ManageScreen() {
     const [testText, setTestText] = useState();
@@ -12,15 +12,10 @@ export default function ManageScreen() {
         >
             <Button
                 buttonColor="ababab"
-                onPress={() =>
-                    fetch("http://10.0.2.2:8000/get_hum/{id}?ids=2")
-                        .then((response) => response.json())
-                        .then((commits) =>
-                            setTestText(commits.temp_hums[0].humidity)
-                        )
+                onPress={() => setTestText(gfdsfsdsfd())
                 }
             >
-                
+
                 Press to get temp of id[0]
             </Button>
 

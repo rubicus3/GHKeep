@@ -3,21 +3,18 @@ import { Dimensions, View } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { Text } from "react-native-paper";
 
-const HumidityGraph = ({ data = [1, 2, 3] }) => {
+const HumidityGraph = ({id=1, data = [60, 36, 70, 50, 26] }) => {
     return (
         <View>
-            <Text>    Датчик 1</Text>
+            <Text variant="titleMedium">      Датчик {id}</Text>
             <LineChart
                 data={{
                     labels: [
+                        "19:40",
                         "19:45",
-                        "19:45",
-                        "19:45",
-                        "19:45",
-                        "19:45",
-                        "19:45",
-                        "19:45",
-                        "19:45",
+                        "19:50",
+                        "19:55",
+                        "20:00",
                     ],
                     datasets: [
                         {
@@ -29,10 +26,10 @@ const HumidityGraph = ({ data = [1, 2, 3] }) => {
                 height={200}
                 yAxisSuffix="%"
                 chartConfig={{
-                    backgroundColor: "#66bb6a",
+                    backgroundColor: "#6e9c59",
                     decimalPlaces: 1, // optional, defaults to 2dp
-                    backgroundGradientFrom: "#66bb6a",
-                    backgroundGradientTo: "#66bb6a",
+                    backgroundGradientFrom: "#699157",
+                    backgroundGradientTo: "#77bd53",
                     color: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
                     labelColor: (opacity = 0) =>
                         `rgba(255, 255, 255, ${opacity})`,

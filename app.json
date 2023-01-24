@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Greenhouse Keeper",
-    "slug": "Greenhouse Keeper",
+    "name": "GHKeep",
+    "slug": "GHKeep",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

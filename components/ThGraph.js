@@ -5,14 +5,14 @@ import { Text } from "react-native-paper";
 
 const ThGraph = ({
     suffix = "",
-    id = 1,
-    data = [60, 36, 70, 50, 26],
-    time = ["19:40", "19:45", "19:50", "19:55", "20:00"],
+    id = 0,
+    data = [0, 0, 0, 0, 0],
+    time = ["00:00", "00:00", "00:00", "00:00", "00:00"],
 }) => {
     return (
         <View>
             <Text variant="titleMedium" style={{ marginLeft: 15 }}>
-                Датчик {id}
+                № {id}
             </Text>
             <LineChart
                 data={{

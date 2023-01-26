@@ -5,18 +5,31 @@ import AvgTable from "../components/AvgTable";
 import HbTable from "../components/HbTable";
 import ThTable from "../components/ThTable";
 import ThGraph from "../components/ThGraph";
-import { get_temp_hum_for_graphics } from "../Api";
+import { getHbGrpah, getTempHumGrpah } from "../Api";
 
 const screenWidth = Dimensions.get("window").width;
 
+const grpahScrollProps = {
+    horizontal: true,
+    decelerationRate: 0,
+    snapToInterval: screenWidth,
+    snapToAlignment: "center",
+    pagingEnabled: true,
+};
+
 export default function HomeScreen() {
-    const [thData, setThData] = useState(null);
+    const [thGraphData, setThGraphData] = useState(null);
+    const [hbGraphData, setHbGraphData] = useState(null);
 
     const onStart = useEffect(() => {
-        get_temp_hum_for_graphics().then((json) => {
-            setThData(json);
+        getTempHumGrpah().then((json) => {
+            setThGraphData(json);
         });
-    });
+
+        getHbGrpah().then((json) => {
+            setHbGraphData(json);
+        });
+    }, []);
 
     return (
         <ScrollView>
@@ -26,6 +39,7 @@ export default function HomeScreen() {
 
             <Divider />
 
+            {/* Таблица текущих данных о влажности температуры и влажности с 4-х датчиков */}
             <ThTable
                 tData={[10.2, 20.3, 30.4, 40.5]}
                 hData={[14, 18, 35, 60]}
@@ -33,19 +47,35 @@ export default function HomeScreen() {
 
             <View style={styles.Divider} />
 
+            {/* Таблица текущих данных о влажности почвы с 6-и датчиков */}
             <HbTable data={[15, 23, 32, 43, 51, 62]} />
 
             <View style={styles.Divider} />
 
-            <ScrollView
-                horizontal={true}
-                decelerationRate={0}
-                snapToInterval={screenWidth}
-                snapToAlignment="center"
-                pagingEnabled
+            {/* Список графиков с данными датчиков температуры */}
+            <ScrollView {...grpahScrollProps}>
+                {thGraphData !== null ? (
+                    thGraphData.map((json) => (
+                        <ThGraph
+                            suffix="%"
+                            id={json.id}
+                            data={json.t_list}
+                            time={json.tim_list}
+                            key={json.id}
+                        />
+                    ))
+                ) : (
+                    <ThGraph />
+                )}
+            </ScrollView>
+
+            <View style={styles.Divider} />
+
+            {/* Список графиков с данными датчиков влажности */}
+            <ScrollView {...grpahScrollProps}
             >
-                {thData !== null ? (
-                    thData.map((json) => (
+                {thGraphData !== null ? (
+                    thGraphData.map((json) => (
                         <ThGraph
                             suffix="%"
                             id={json.id}
@@ -55,45 +85,28 @@ export default function HomeScreen() {
                         />
                     ))
                 ) : (
-                    <View></View>
+                    <ThGraph />
                 )}
-                {/* <ThGraph
-                    id={1}
-                    suffix="%"
-                    data={[60, 36, 70, 50, 26]}
-                    time={["19:40", "19:45", "19:50", "19:55", "20:00"]}
-                /> */}
             </ScrollView>
 
             <View style={styles.Divider} />
 
-            <ScrollView
-                horizontal={true}
-                decelerationRate={0}
-                snapToInterval={screenWidth}
-                snapToAlignment="center"
-                pagingEnabled
+            {/* Список графиков с данными датчиков влажности почвы */}
+            <ScrollView {...grpahScrollProps}
             >
-                <ThGraph />
-                <ThGraph />
-                <ThGraph />
-                <ThGraph />
-            </ScrollView>
-            <View style={styles.Divider} />
-
-            <ScrollView
-                horizontal={true}
-                decelerationRate={0}
-                snapToInterval={screenWidth}
-                snapToAlignment="center"
-                pagingEnabled
-            >
-                <ThGraph />
-                <ThGraph />
-                <ThGraph />
-                <ThGraph />
-                <ThGraph />
-                <ThGraph />
+                {hbGraphData !== null ? (
+                    hbGraphData.map((json) => (
+                        <ThGraph
+                            suffix="%"
+                            id={json.id}
+                            data={json.h_list}
+                            time={json.tim_list}
+                            key={json.id}
+                        />
+                    ))
+                ) : (
+                    <ThGraph />
+                )}
             </ScrollView>
 
             <Divider />

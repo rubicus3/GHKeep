@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { DataTable } from "react-native-paper";
 
-const HbTable = ({ data }) => {
+const HbTable = ({ data = [0, 0, 0, 0, 0, 0] }) => {
     return (
         <View
             style={{

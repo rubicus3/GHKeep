@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { DataTable } from "react-native-paper";
 
-const AvgTable = ({ data }) => {
+const AvgTable = ({ data = [0, 0] }) => {
     return (
         <View
             style={{

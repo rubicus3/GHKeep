@@ -5,7 +5,7 @@ import AvgTable from "../components/AvgTable";
 import HbTable from "../components/HbTable";
 import ThTable from "../components/ThTable";
 import ThGraph from "../components/ThGraph";
-import { getHbGrpah, getTempHumGrpah } from "../Api";
+import { getHbGrpah, getTempHumGrpah, getThTable, getHbTable } from "../Api";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -21,6 +21,12 @@ export default function HomeScreen() {
     const [thGraphData, setThGraphData] = useState(null);
     const [hbGraphData, setHbGraphData] = useState(null);
 
+    const [thCurData, setThCurData] = useState(null);
+    const [hbCurData, setHbCurData] = useState(null);
+
+    const [avgData, setAvgData] = useState(null);
+    const [avgGraphData, setAvgGraphData] = useState(null);
+
     const onStart = useEffect(() => {
         getTempHumGrpah().then((json) => {
             setThGraphData(json);
@@ -29,6 +35,15 @@ export default function HomeScreen() {
         getHbGrpah().then((json) => {
             setHbGraphData(json);
         });
+
+        getThTable().then((json) => {
+            setThCurData(json);
+        });
+
+        getHbTable().then((json) => {
+            setHbCurData(json);
+        })
+
     }, []);
 
     return (
@@ -40,15 +55,16 @@ export default function HomeScreen() {
             <Divider />
 
             {/* Таблица текущих данных о влажности температуры и влажности с 4-х датчиков */}
-            <ThTable
-                tData={[10.2, 20.3, 30.4, 40.5]}
-                hData={[14, 18, 35, 60]}
-            />
+            {thCurData !== null ? (
+                <ThTable tData={thCurData.t_list} hData={thCurData.h_list}/>
+            ) : (<ThTable/>)}
 
             <View style={styles.Divider} />
 
             {/* Таблица текущих данных о влажности почвы с 6-и датчиков */}
-            <HbTable data={[15, 23, 32, 43, 51, 62]} />
+            {hbCurData !== null ? (
+                <HbTable data={hbCurData.h_list}/>
+            ) : (<HbTable/>)}
 
             <View style={styles.Divider} />
 
@@ -60,7 +76,7 @@ export default function HomeScreen() {
                 {thGraphData !== null ? (
                     thGraphData.map((json) => (
                         <ThGraph
-                            suffix="%"
+                            suffix="°C"
                             id={json.id}
                             data={json.t_list}
                             time={json.tim_list}

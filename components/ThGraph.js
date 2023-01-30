@@ -25,7 +25,7 @@ const ThGraph = ({
                 }}
                 width={Dimensions.get("window").width} // from react-native
                 height={200}
-                yAxisSuffix="%"
+                yAxisSuffix={suffix}
                 chartConfig={{
                     backgroundColor: "#6e9c59",
                     decimalPlaces: 1, // optional, defaults to 2dp

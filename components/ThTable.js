@@ -22,10 +22,10 @@ const ThTable = ({ tData = [0, 0, 0, 0], hData = [0, 0, 0, 0] }) => {
 
                 <DataTable.Row>
                     <DataTable.Cell>T °C</DataTable.Cell>
-                    <DataTable.Cell>{tData[0]}</DataTable.Cell>
-                    <DataTable.Cell>{tData[1]}</DataTable.Cell>
-                    <DataTable.Cell>{tData[2]}</DataTable.Cell>
-                    <DataTable.Cell>{tData[3]}</DataTable.Cell>
+                    <DataTable.Cell>{tData[0]}°C</DataTable.Cell>
+                    <DataTable.Cell>{tData[1]}°C</DataTable.Cell>
+                    <DataTable.Cell>{tData[2]}°C</DataTable.Cell>
+                    <DataTable.Cell>{tData[3]}°C</DataTable.Cell>
                 </DataTable.Row>
 
                 <DataTable.Row>

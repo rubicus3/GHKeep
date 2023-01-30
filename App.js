@@ -15,10 +15,6 @@ export default function App() {
                     name="Home"
                     component={HomeScreen}
                     options={{
-                        header: () => {
-                            const title = "asdfsdfa";
-                        },
-
                         tabBarIcon: () => (
                             <MaterialCommunityIcons name="home" size={26} />
                         ),

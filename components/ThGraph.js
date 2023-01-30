@@ -10,7 +10,7 @@ const ThGraph = ({
     time = ["00:00", "00:00", "00:00", "00:00", "00:00"],
 }) => {
     return (
-        <View>
+        <View style={{backgroundColor: "ababab"}}>
             <Text variant="titleMedium" style={{ marginLeft: 15 }}>
                 № {id}
             </Text>

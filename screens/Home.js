@@ -53,6 +53,9 @@ export default function HomeScreen() {
             <View style={styles.Divider} />
 
             {/* Список графиков с данными датчиков температуры */}
+            <Text variant="titleLarge" style={{ textAlign: "center" }}>
+                Датчики температуры воздуха
+            </Text>
             <ScrollView {...grpahScrollProps}>
                 {thGraphData !== null ? (
                     thGraphData.map((json) => (
@@ -72,8 +75,10 @@ export default function HomeScreen() {
             <View style={styles.Divider} />
 
             {/* Список графиков с данными датчиков влажности */}
-            <ScrollView {...grpahScrollProps}
-            >
+            <Text variant="titleLarge" style={{ textAlign: "center" }}>
+                Датчики влажности воздуха
+            </Text>
+            <ScrollView {...grpahScrollProps}>
                 {thGraphData !== null ? (
                     thGraphData.map((json) => (
                         <ThGraph
@@ -92,8 +97,10 @@ export default function HomeScreen() {
             <View style={styles.Divider} />
 
             {/* Список графиков с данными датчиков влажности почвы */}
-            <ScrollView {...grpahScrollProps}
-            >
+            <Text variant="titleLarge" style={{ textAlign: "center" }}>
+                Датчики влажности почвы
+            </Text>
+            <ScrollView {...grpahScrollProps}>
                 {hbGraphData !== null ? (
                     hbGraphData.map((json) => (
                         <ThGraph
@@ -109,13 +116,27 @@ export default function HomeScreen() {
                 )}
             </ScrollView>
 
-            <Divider />
-
             <Text variant="headlineMedium" style={{ margin: 15 }}>
                 Средние данные
             </Text>
 
+            <Divider />
+
             <AvgTable data={[50, 30]} />
+
+            <View style={styles.Divider} />
+
+            <Text variant="titleLarge" style={{ textAlign: "center" }}>
+                Средняя влажность
+            </Text>
+            <ThGraph />
+
+            <View style={styles.Divider} />
+
+            <Text variant="titleLarge" style={{ textAlign: "center" }}>
+                Средняя Температура
+            </Text>
+            <ThGraph />
         </ScrollView>
     );
 }

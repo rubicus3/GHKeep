@@ -12,7 +12,7 @@ const ThGraph = ({
     return (
         <View style={{backgroundColor: "ababab"}}>
             <Text variant="titleMedium" style={{ marginLeft: 15 }}>
-                № {id}
+                {id}
             </Text>
             <LineChart
                 data={{

@@ -15,7 +15,7 @@
       "fallbackToCacheTimeout": 0
     },
     "androidNavigationBar": {
-        "visible": "immersive"
+      "visible": "immersive"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -27,11 +27,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.rubicus.GHKeep"
     },
-    
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "416e89c8-00ba-4f87-9c51-be885cffff12"
+      }
     }
   }
 }

@@ -5,7 +5,14 @@ import AvgTable from "../components/AvgTable";
 import HbTable from "../components/HbTable";
 import ThTable from "../components/ThTable";
 import ThGraph from "../components/ThGraph";
-import { getHbGrpah, getTempHumGrpah, getThTable, getHbTable } from "../Api";
+import {
+    getThTable,
+    getHbTable,
+    getTempHumGrpah,
+    getHbGrpah,
+    getAvgTempGraph,
+    getAvgHumGraph,
+} from "../Api";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -18,16 +25,25 @@ const grpahScrollProps = {
 };
 
 export default function HomeScreen() {
-    const [thGraphData, setThGraphData] = useState(null);
-    const [hbGraphData, setHbGraphData] = useState(null);
-
     const [thCurData, setThCurData] = useState(null);
     const [hbCurData, setHbCurData] = useState(null);
 
+    const [thGraphData, setThGraphData] = useState(null);
+    const [hbGraphData, setHbGraphData] = useState(null);
+
     const [avgData, setAvgData] = useState(null);
-    const [avgGraphData, setAvgGraphData] = useState(null);
+    const [avgGraphTempData, setAvgGraphTempData] = useState(null);
+    const [avgGraphHumData, setAvgGraphHumData] = useState(null);
 
     const onStart = useEffect(() => {
+        getThTable().then((json) => {
+            setThCurData(json);
+        });
+
+        getHbTable().then((json) => {
+            setHbCurData(json);
+        });
+
         getTempHumGrpah().then((json) => {
             setThGraphData(json);
         });
@@ -36,14 +52,13 @@ export default function HomeScreen() {
             setHbGraphData(json);
         });
 
-        getThTable().then((json) => {
-            setThCurData(json);
+        getAvgTempGraph().then((json) => {
+            setAvgGraphTempData(json);
         });
 
-        getHbTable().then((json) => {
-            setHbCurData(json);
-        })
-
+        getAvgHumGraph().then((json) => {
+            setAvgGraphHumData(json);
+        });
     }, []);
 
     return (
@@ -56,15 +71,19 @@ export default function HomeScreen() {
 
             {/* Таблица текущих данных о влажности температуры и влажности с 4-х датчиков */}
             {thCurData !== null ? (
-                <ThTable tData={thCurData.t_list} hData={thCurData.h_list}/>
-            ) : (<ThTable/>)}
+                <ThTable tData={thCurData.t_list} hData={thCurData.h_list} />
+            ) : (
+                <ThTable />
+            )}
 
             <View style={styles.Divider} />
 
             {/* Таблица текущих данных о влажности почвы с 6-и датчиков */}
             {hbCurData !== null ? (
-                <HbTable data={hbCurData.h_list}/>
-            ) : (<HbTable/>)}
+                <HbTable data={hbCurData.h_list} />
+            ) : (
+                <HbTable />
+            )}
 
             <View style={styles.Divider} />
 
@@ -77,7 +96,7 @@ export default function HomeScreen() {
                     thGraphData.map((json) => (
                         <ThGraph
                             suffix="°C"
-                            id={json.id}
+                            id={"№ " + json.id}
                             data={json.t_list}
                             time={json.tim_list}
                             key={json.id}
@@ -99,7 +118,7 @@ export default function HomeScreen() {
                     thGraphData.map((json) => (
                         <ThGraph
                             suffix="%"
-                            id={json.id}
+                            id={"№ " + json.id}
                             data={json.h_list}
                             time={json.tim_list}
                             key={json.id}
@@ -121,7 +140,7 @@ export default function HomeScreen() {
                     hbGraphData.map((json) => (
                         <ThGraph
                             suffix="%"
-                            id={json.id}
+                            id={"№ " + json.id}
                             data={json.h_list}
                             time={json.tim_list}
                             key={json.id}
@@ -138,21 +157,52 @@ export default function HomeScreen() {
 
             <Divider />
 
-            <AvgTable data={[50, 30]} />
+            {avgGraphTempData !== null && avgGraphHumData !== null ? (
+                <AvgTable
+                    data={[
+                        avgGraphTempData.d_list[4],
+                        avgGraphHumData.d_list[4],
+                    ]}
+                />
+            ) : (
+                <AvgTable />
+            )}
 
             <View style={styles.Divider} />
 
             <Text variant="titleLarge" style={{ textAlign: "center" }}>
-                Средняя влажность
+                Изменение температуры
             </Text>
-            <ThGraph />
+            <ScrollView {...grpahScrollProps}>
+                {avgGraphTempData !== null ? (
+                    <ThGraph
+                        suffix="°C"
+                        id={""}
+                        data={avgGraphTempData.d_list}
+                        time={avgGraphTempData.t_list}
+                    />
+                ) : (
+                    <ThGraph />
+                )}
+            </ScrollView>
 
             <View style={styles.Divider} />
 
             <Text variant="titleLarge" style={{ textAlign: "center" }}>
-                Средняя Температура
+                Изменение влажности
             </Text>
-            <ThGraph />
+            <ScrollView {...grpahScrollProps}>
+                {avgGraphHumData !== null ? (
+                    <ThGraph
+                        suffix="%"
+                        id={""}
+                        data={avgGraphHumData.d_list}
+                        time={avgGraphHumData.t_list}
+                    />
+                ) : (
+                    <ThGraph />
+                )}
+            </ScrollView>
         </ScrollView>
     );
 }

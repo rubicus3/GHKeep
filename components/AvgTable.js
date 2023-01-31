@@ -18,7 +18,7 @@ const AvgTable = ({ data = [0, 0] }) => {
                 </DataTable.Header>
 
                 <DataTable.Row>
-                    <DataTable.Cell>{data[0]}</DataTable.Cell>
+                    <DataTable.Cell>{data[0]}°C</DataTable.Cell>
                     <DataTable.Cell>{data[1]}%</DataTable.Cell>
                 </DataTable.Row>
             </DataTable>

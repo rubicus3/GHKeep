@@ -37,7 +37,3 @@ export async function getAvgHumGraph() {
     const json = await response.json();
     return json;
 }
-
-// get_temp_hum_for_graphics().then((json) => {
-//     console.log(json);
-// });

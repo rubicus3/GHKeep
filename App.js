@@ -4,6 +4,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import HomeScreen from "./screens/Home";
 import SettingsScreen from "./screens/Settings";
 import ManageScreen from "./screens/Manage";
+import React from "react";
 
 const Tab = createMaterialBottomTabNavigator();
 

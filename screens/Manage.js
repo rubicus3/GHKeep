@@ -1,11 +1,11 @@
-import { Platform, ScrollView, View } from "react-native";
+import React from "react";
+import { ScrollView } from "react-native";
 import { Text, Divider } from "react-native-paper";
-import THStatus from "../components/THStatus";
-import { useTheme } from "react-native-paper";
+import TStatus from "../components/TStatus";
+import HStatus from "../components/HStatus";
+import HbStatus from "../components/HbStatus";
 
 export default function ManageScreen() {
-    const theme = useTheme();
-
     return (
         <ScrollView scrollEnabled={false}>
             <Text variant="headlineMedium" style={{ padding: 15 }}>
@@ -13,13 +13,14 @@ export default function ManageScreen() {
             </Text>
 
             <Divider />
-            <THStatus />
-            <THStatus status={false} icon="water-sync" text="Полив"/>
-            <THStatus />
-            <THStatus />
-            <THStatus />
-            <THStatus />
-            <THStatus />
+            <TStatus />
+            <HStatus />
+            <HbStatus wateringId={1} />
+            <HbStatus wateringId={2} />
+            <HbStatus wateringId={3} />
+            <HbStatus wateringId={4} />
+            <HbStatus wateringId={5} />
+            <HbStatus wateringId={6} />
         </ScrollView>
     );
 }

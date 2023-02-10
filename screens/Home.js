@@ -89,7 +89,7 @@ export default function HomeScreen() {
 
             {/* Список графиков с данными датчиков температуры */}
             <Text variant="titleLarge" style={{ textAlign: "center" }}>
-                Датчики температуры воздуха
+                История температуры воздуха
             </Text>
             <ScrollView {...grpahScrollProps}>
                 {thGraphData !== null ? (
@@ -111,7 +111,7 @@ export default function HomeScreen() {
 
             {/* Список графиков с данными датчиков влажности */}
             <Text variant="titleLarge" style={{ textAlign: "center" }}>
-                Датчики влажности воздуха
+                История влажности воздуха
             </Text>
             <ScrollView {...grpahScrollProps}>
                 {thGraphData !== null ? (
@@ -133,7 +133,7 @@ export default function HomeScreen() {
 
             {/* Список графиков с данными датчиков влажности почвы */}
             <Text variant="titleLarge" style={{ textAlign: "center" }}>
-                Датчики влажности почвы
+                История влажности почвы
             </Text>
             <ScrollView {...grpahScrollProps}>
                 {hbGraphData !== null ? (

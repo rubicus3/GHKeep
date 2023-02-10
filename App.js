@@ -5,11 +5,13 @@ import HomeScreen from "./screens/Home";
 import SettingsScreen from "./screens/Settings";
 import ManageScreen from "./screens/Manage";
 import React from "react";
+import { Provider } from "react-native-paper";
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
     return (
+        <Provider>
         <NavigationContainer>
             <Tab.Navigator>
                 <Tab.Screen
@@ -41,5 +43,6 @@ export default function App() {
                 />
             </Tab.Navigator>
         </NavigationContainer>
+        </Provider>
     );
 }

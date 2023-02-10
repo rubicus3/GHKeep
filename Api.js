@@ -1,4 +1,4 @@
-const dblink = "http://192.168.43.247:8000";
+const dblink = "http://172.29.173.19:8000";
 
 // Get requests
 

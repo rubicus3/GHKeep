@@ -43,7 +43,6 @@ const TStatus = () => {
                     borderRadius: 15,
                     borderWidth: 7,
                     margin: 12,
-
                     justifyContent: "flex-end",
                 }}
             >

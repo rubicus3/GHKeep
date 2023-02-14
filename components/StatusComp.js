@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { Button, Text, Switch } from "react-native-paper";
-import { changeHydrationState, getHydrationState } from "../Api";
 
-const HStatus = () => {
+const StatusComp = ({text, icon, statusId, getFunc, changeFunc}) => {
     const [isOn, setIsOn] = useState(true);
 
     const onStatusChange = () => {
         setIsOn(!isOn);
-        changeHydrationState().then(() => {
-            getHydrationState().then((json) => {
+        changeFunc(id=statusId).then(() => {
+            getFunc(id=statusId).then((json) => {
                 setIsOn(Boolean(json));
             });
         });
     };
 
     const onStart = useEffect(() => {
-        getHydrationState().then((json) => {
+        getFunc(id=statusId).then((json) => {
             setIsOn(Boolean(json));
         });
     }, []);
@@ -24,11 +23,11 @@ const HStatus = () => {
     return (
         <View style={{ flex: 1, flexDirection: "row", marginBottom: 0 }}>
             <Button
-                icon="air-filter"
+                icon={icon}
                 textColor="#000000"
                 style={{ marginTop: 5 }}
             >
-                Увлажнение
+                {text} {statusId}
             </Button>
             <View style={{ flexGrow: 1 }} />
             <Switch
@@ -43,6 +42,7 @@ const HStatus = () => {
                     borderRadius: 15,
                     borderWidth: 7,
                     margin: 12,
+
                     justifyContent: "flex-end",
                 }}
             >
@@ -52,4 +52,4 @@ const HStatus = () => {
     );
 };
 
-export default HStatus;
+export default StatusComp;

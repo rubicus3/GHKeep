@@ -1,9 +1,15 @@
 import React from "react";
 import { ScrollView } from "react-native";
 import { Text, Divider } from "react-native-paper";
-import TStatus from "../components/TStatus";
-import HStatus from "../components/HStatus";
-import HbStatus from "../components/HbStatus";
+import StatusComp from "../components/StatusComp";
+import {
+    getWateringState,
+    changeWateringState,
+    getForkState,
+    changeForkState,
+    changeHydrationState,
+    getHydrationState,
+} from "../Api";
 
 export default function ManageScreen() {
     return (
@@ -13,14 +19,31 @@ export default function ManageScreen() {
             </Text>
 
             <Divider />
-            <TStatus />
-            <HStatus />
-            <HbStatus wateringId={1} />
-            <HbStatus wateringId={2} />
-            <HbStatus wateringId={3} />
-            <HbStatus wateringId={4} />
-            <HbStatus wateringId={5} />
-            <HbStatus wateringId={6} />
+
+            <StatusComp
+                text="Форточки"
+                icon="weather-windy"
+                statusId=""
+                getFunc={getHydrationState}
+                changeFunc={changeHydrationState}
+            />
+            <StatusComp
+                text="Увлажнение"
+                icon="air-filter"
+                statusId=""
+                getFunc={getForkState}
+                changeFunc={changeForkState}
+            />
+            {[1, 2, 3, 4, 5, 6].map((id) => (
+                <StatusComp
+                    key={id}
+                    text="Бороздка"
+                    icon="watering-can-outline"
+                    statusId={id}
+                    getFunc={getWateringState}
+                    changeFunc={changeWateringState}
+                />
+            ))}
         </ScrollView>
     );
 }

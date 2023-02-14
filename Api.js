@@ -60,13 +60,13 @@ export async function getWateringState(id) {
 
 // Put requests
 
-export async function changeForkState() {
+export async function changeForkState(id) {
     const response = await fetch(dblink + "/change_fork", {method: "PUT"});
 
     return response.status;
 }
 
-export async function changeHydrationState() {
+export async function changeHydrationState(id) {
     const response = await fetch(dblink + "/change_total_hum", {method: "PUT"});
 
     return response.status;

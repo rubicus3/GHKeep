@@ -3,12 +3,12 @@ import { ScrollView } from "react-native";
 import { Text, Divider } from "react-native-paper";
 import StatusComp from "../components/StatusComp";
 import {
-    getWateringState,
-    changeWateringState,
     getForkState,
+    getHydrationState,
+    getWateringState,
     changeForkState,
     changeHydrationState,
-    getHydrationState,
+    changeWateringState,
 } from "../Api";
 
 export default function ManageScreen() {

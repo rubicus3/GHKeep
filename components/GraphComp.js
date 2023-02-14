@@ -3,7 +3,7 @@ import { Dimensions, View } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { Text } from "react-native-paper";
 
-const ThGraph = ({
+const GraphComp = ({
     suffix = "",
     id = 0,
     data = [0, 0, 0, 0, 0],
@@ -53,4 +53,4 @@ const ThGraph = ({
     );
 };
 
-export default ThGraph;
+export default GraphComp;

@@ -4,7 +4,7 @@ import { Divider, Text } from "react-native-paper";
 import AvgTable from "../components/AvgTable";
 import HbTable from "../components/HbTable";
 import ThTable from "../components/ThTable";
-import ThGraph from "../components/ThGraph";
+import GraphComp from "../components/GraphComp";
 import {
     getThTable,
     getHbTable,
@@ -31,7 +31,6 @@ export default function HomeScreen() {
     const [thGraphData, setThGraphData] = useState(null);
     const [hbGraphData, setHbGraphData] = useState(null);
 
-    const [avgData, setAvgData] = useState(null);
     const [avgGraphTempData, setAvgGraphTempData] = useState(null);
     const [avgGraphHumData, setAvgGraphHumData] = useState(null);
 
@@ -94,7 +93,7 @@ export default function HomeScreen() {
             <ScrollView {...grpahScrollProps}>
                 {thGraphData !== null ? (
                     thGraphData.map((json) => (
-                        <ThGraph
+                        <GraphComp
                             suffix="°C"
                             id={"№ " + json.id}
                             data={json.t_list}
@@ -103,7 +102,7 @@ export default function HomeScreen() {
                         />
                     ))
                 ) : (
-                    <ThGraph />
+                    <GraphComp />
                 )}
             </ScrollView>
 
@@ -116,7 +115,7 @@ export default function HomeScreen() {
             <ScrollView {...grpahScrollProps}>
                 {thGraphData !== null ? (
                     thGraphData.map((json) => (
-                        <ThGraph
+                        <GraphComp
                             suffix="%"
                             id={"№ " + json.id}
                             data={json.h_list}
@@ -125,7 +124,7 @@ export default function HomeScreen() {
                         />
                     ))
                 ) : (
-                    <ThGraph />
+                    <GraphComp />
                 )}
             </ScrollView>
 
@@ -138,7 +137,7 @@ export default function HomeScreen() {
             <ScrollView {...grpahScrollProps}>
                 {hbGraphData !== null ? (
                     hbGraphData.map((json) => (
-                        <ThGraph
+                        <GraphComp
                             suffix="%"
                             id={"№ " + json.id}
                             data={json.h_list}
@@ -147,7 +146,7 @@ export default function HomeScreen() {
                         />
                     ))
                 ) : (
-                    <ThGraph />
+                    <GraphComp />
                 )}
             </ScrollView>
 
@@ -175,14 +174,14 @@ export default function HomeScreen() {
             </Text>
             <ScrollView {...grpahScrollProps}>
                 {avgGraphTempData !== null ? (
-                    <ThGraph
+                    <GraphComp
                         suffix="°C"
                         id={""}
                         data={avgGraphTempData.d_list}
                         time={avgGraphTempData.t_list}
                     />
                 ) : (
-                    <ThGraph />
+                    <GraphComp />
                 )}
             </ScrollView>
 
@@ -193,14 +192,14 @@ export default function HomeScreen() {
             </Text>
             <ScrollView {...grpahScrollProps}>
                 {avgGraphHumData !== null ? (
-                    <ThGraph
+                    <GraphComp
                         suffix="%"
                         id={""}
                         data={avgGraphHumData.d_list}
                         time={avgGraphHumData.t_list}
                     />
                 ) : (
-                    <ThGraph />
+                    <GraphComp />
                 )}
             </ScrollView>
         </ScrollView>

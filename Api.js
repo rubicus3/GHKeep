@@ -1,4 +1,4 @@
-const dblink = "http://172.29.173.19:8000";
+const dblink = "http://192.168.43.247:8000";
 
 // Get requests
 
@@ -58,22 +58,32 @@ export async function getWateringState(id) {
     return json;
 }
 
+export async function getLimitValues() {
+    const response = await fetch(dblink + "/get_warnings");
+    const json = await response.json();
+    return json;
+}
+
 // Put requests
 
 export async function changeForkState(id) {
-    const response = await fetch(dblink + "/change_fork", {method: "PUT"});
+    const response = await fetch(dblink + "/change_fork", { method: "PUT" });
 
-    return response.status;
+    return response;
 }
 
 export async function changeHydrationState(id) {
-    const response = await fetch(dblink + "/change_total_hum", {method: "PUT"});
+    const response = await fetch(dblink + "/change_total_hum", {
+        method: "PUT",
+    });
 
-    return response.status;
+    return response;
 }
 
 export async function changeWateringState(id) {
-    const response = await fetch(dblink + `/change_watering/${id}`, {method: "PUT"});
+    const response = await fetch(dblink + `/change_watering/${id}`, {
+        method: "PUT",
+    });
 
-    return response.status;
+    return response;
 }

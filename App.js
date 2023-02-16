@@ -6,13 +6,18 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import HomeScreen from "./screens/Home";
 import SettingsScreen from "./screens/Settings";
 import ManageScreen from "./screens/Manage";
+import * as NavigationBar from 'expo-navigation-bar';
+import { Platform } from "react-native";
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
+
+    Platform.OS === 'android' ? NavigationBar.setBehaviorAsync('overlay-swipe') : ""
+
     return (
         <Provider>
-            <NavigationContainer>
+            <NavigationContainer>   
                 <Tab.Navigator>
                     <Tab.Screen
                         name="Home"

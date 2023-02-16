@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { Button, Text, Switch } from "react-native-paper";
 
 const StatusComp = ({text, icon, statusId, getFunc, changeFunc}) => {
-    const [isOn, setIsOn] = useState(true);
+    const [isOn, setIsOn] = useState(false);
 
     const onStatusChange = () => {
         setIsOn(!isOn);

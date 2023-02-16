@@ -1,4 +1,4 @@
-const dblink = "http://192.168.43.247:8000";
+const dblink = "http://192.168.3.40:8000";
 
 // Get requests
 
@@ -86,4 +86,36 @@ export async function changeWateringState(id) {
     });
 
     return response;
+}
+
+export async function changeTemperatureLimit(id, newValue) {
+    console.log(newValue);
+    const response = await fetch(dblink + `/change_warnings_temp/${newValue}`, {
+        method: "PUT",
+    });
+
+    const status = await response.status;
+
+    if(status == 422) return "Unexpected value. Value must be float or integer"
+
+    return response.json()
+}
+
+
+export async function changeHumidityLimit(id, newValue) {
+    const response = await fetch(dblink + `/change_warnings_h/${newValue}`, {
+        method: "PUT",
+    });
+
+    const status = await response.status;
+    return response.json()
+}
+
+export async function changeHbLimit(id, newValue) {
+    const response = await fetch(dblink + `/change_warnings_hb/${id}/${newValue}`, {
+        method: "PUT",
+    });
+
+    const status = await response.status;
+    return response.json()
 }

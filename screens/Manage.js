@@ -51,7 +51,7 @@ export default function ManageScreen() {
                 isExtra={extra}
                 snack={onToggleSnackBar}
             />
-            {[1, 2, 3, 4, 5, 6].map((id) => (
+            {[1, 2, 3, 4, 5, 6].map((id) => (  
                 <StatusComp
                     key={id}
                     text="Бороздка"

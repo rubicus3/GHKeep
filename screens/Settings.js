@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { ScrollView, View } from "react-native";
-import { Text, Divider, Button, Snackbar } from "react-native-paper";
+import {
+    Text,
+    Divider,
+    Button,
+    Snackbar,
+    ToggleButton,
+} from "react-native-paper";
+import SettingComp from "../components/SettingComp";
+import { ExtraContext } from "../Context";
 import {
     getLimitValues,
     changeTemperatureLimit,
     changeHumidityLimit,
     changeHbLimit,
 } from "../Api";
-import SettingComp from "../components/SettingComp";
 
 export default function SettingsScreen() {
-    const [tempLimit, setTempLimit] = useState(null);
-    const [humLimit, setHumLimit] = useState(null);
-    const [hbLimits, setHbLimits] = useState(null);
+    const { extra, setExtra } = useContext(ExtraContext);
+
+    const [limits, setLimits] = useState(null);
 
     const [visible, setVisible] = useState(false);
     const [snackContent, setSnackContent] = useState("OK");
@@ -26,9 +33,7 @@ export default function SettingsScreen() {
 
     const onStart = useEffect(() => {
         getLimitValues().then((json) => {
-            setTempLimit(json.temperature);
-            setHumLimit(json.humidity_air);
-            setHbLimits(json.humidity_soil);
+            setLimits(json);
         });
     }, []);
 
@@ -38,24 +43,24 @@ export default function SettingsScreen() {
                 Настройки
             </Text>
             <Divider />
-            {!!tempLimit ? (
+            {!!limits ? (
                 <SettingComp
                     settingId={0}
                     icon="weather-windy"
                     text="Лимит на форточки"
-                    val={tempLimit}
+                    val={limits.temperature}
                     saveFunc={changeTemperatureLimit}
                     snack={onToggleSnackBar}
                 />
             ) : (
                 <></>
             )}
-            {!!humLimit ? (
+            {!!limits ? (
                 <SettingComp
                     settingId={0}
                     icon="air-filter"
                     text="Лимит увлажнения"
-                    val={humLimit}
+                    val={limits.humidity_air}
                     saveFunc={changeHumidityLimit}
                     snack={onToggleSnackBar}
                 />
@@ -63,8 +68,8 @@ export default function SettingsScreen() {
                 <></>
             )}
 
-            {!!hbLimits ? (
-                hbLimits.map((json) => (
+            {!!limits ? (
+                limits.humidity_soil.map((json) => (
                     <SettingComp
                         key={json.id}
                         settingId={json.id}
@@ -79,15 +84,23 @@ export default function SettingsScreen() {
                 <></>
             )}
 
-            <Divider style={{ marginVertical: 50}} />
-            <Button
-                icon="alert"
-                mode="outlined"
-                onPress={() => onToggleSnackBar("сорян пока не работает")}
-                style={{ width: 200, alignSelf: "center" }}
-            >
-                Экстренный режим
-            </Button>
+            <Divider style={{ marginVertical: 50 }} />
+            <View style={{ justifyContent: "center", flexDirection: "row" }}>
+                <ToggleButton
+                    icon="alert"
+                    value="alert"
+                    status={extra ? "checked" : "unchecked"}
+                    onPress={() => {
+                        setExtra(!extra);
+                    }}
+                />
+                <Text
+                    variant="titleMedium"
+                    style={{ paddingTop: 7, marginLeft: 5 }}
+                >
+                    Экстренный Режим
+                </Text>
+            </View>
             <Snackbar
                 visible={visible}
                 duration={3000}

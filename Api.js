@@ -66,26 +66,49 @@ export async function getLimitValues() {
 
 // Put requests
 
-export async function changeForkState(id) {
-    const response = await fetch(dblink + "/change_fork", { method: "PUT" });
+export async function changeForkState(id, isExtra) {
+    const response = await fetch(
+        dblink + `/change_fork/${isExtra ? "true" : "false"}`,
+        { method: "PUT" }
+    );
 
-    return response;
+    const json = await response.json();
+    const status = await response.status;
+
+    if (status === 200) return "OK";
+
+    return json;
 }
 
-export async function changeHydrationState(id) {
-    const response = await fetch(dblink + "/change_total_hum", {
-        method: "PUT",
-    });
+export async function changeHydrationState(id, isExtra) {
+    const response = await fetch(
+        dblink + `/change_total_hum/${isExtra ? "true" : "false"}`,
+        {
+            method: "PUT",
+        }
+    );
 
-    return response;
+    const json = await response.json();
+    const status = await response.status;
+
+    if (status === 200) return "OK";
+
+    return json;
 }
 
-export async function changeWateringState(id) {
-    const response = await fetch(dblink + `/change_watering/${id}`, {
-        method: "PUT",
-    });
+export async function changeWateringState(id, isExtra) {
+    const response = await fetch(
+        dblink + `/change_watering/${id}/${isExtra ? "true" : "false"}`,
+        {
+            method: "PUT",
+        }
+    );
+    const json = await response.json();
+    const status = await response.status;
 
-    return response;
+    if (status === 200) return "OK";
+
+    return json;
 }
 
 export async function changeTemperatureLimit(id, newValue) {
@@ -96,11 +119,11 @@ export async function changeTemperatureLimit(id, newValue) {
 
     const status = await response.status;
 
-    if(status == 422) return "Unexpected value. Value must be float or integer"
+    if (status == 422)
+        return "Unexpected value. Value must be float or integer";
 
-    return response.json()
+    return response.json();
 }
-
 
 export async function changeHumidityLimit(id, newValue) {
     const response = await fetch(dblink + `/change_warnings_h/${newValue}`, {
@@ -108,14 +131,25 @@ export async function changeHumidityLimit(id, newValue) {
     });
 
     const status = await response.status;
-    return response.json()
+
+    if (status == 422)
+        return "Unexpected value. Value must be float or integer";
+
+    return response.json();
 }
 
 export async function changeHbLimit(id, newValue) {
-    const response = await fetch(dblink + `/change_warnings_hb/${id}/${newValue}`, {
-        method: "PUT",
-    });
+    const response = await fetch(
+        dblink + `/change_warnings_hb/${id}/${newValue}`,
+        {
+            method: "PUT",
+        }
+    );
 
     const status = await response.status;
-    return response.json()
+
+    if (status == 422)
+        return "Unexpected value. Value must be float or integer";
+
+    return response.json();
 }

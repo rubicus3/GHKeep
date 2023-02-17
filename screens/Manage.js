@@ -37,8 +37,8 @@ export default function ManageScreen() {
                 text="Форточки"
                 icon="weather-windy"
                 statusId=""
-                getFunc={getHydrationState}
-                changeFunc={changeHydrationState}
+                getFunc={getForkState}
+                changeFunc={changeForkState}
                 isExtra={extra}
                 snack={onToggleSnackBar}
             />
@@ -46,8 +46,8 @@ export default function ManageScreen() {
                 text="Увлажнение"
                 icon="air-filter"
                 statusId=""
-                getFunc={getForkState}
-                changeFunc={changeForkState}
+                getFunc={getHydrationState}
+                changeFunc={changeHydrationState}
                 isExtra={extra}
                 snack={onToggleSnackBar}
             />
@@ -66,7 +66,22 @@ export default function ManageScreen() {
 
             <View style={{ marginVertical: 30 }}></View>
 
-            {extra ? <Text  variant="titleMedium" style={{alignSelf: "center", borderColor: "ff7970", borderRadius: 15, borderWidth: 1, padding: 5}}>Включён Экстренный Режим</Text> : <></>}
+            {extra ? (
+                <Text
+                    variant="titleMedium"
+                    style={{
+                        alignSelf: "center",
+                        borderColor: "ff7970",
+                        borderRadius: 15,
+                        borderWidth: 1,
+                        padding: 5,
+                    }}
+                >
+                    Включён Экстренный Режим
+                </Text>
+            ) : (
+                <View style={{ marginBottom: 80 }}></View>
+            )}
 
             <Snackbar
                 visible={visible}

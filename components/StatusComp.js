@@ -2,32 +2,34 @@ import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { Button, Text, Switch } from "react-native-paper";
 
-const StatusComp = ({text, icon, statusId, getFunc, changeFunc}) => {
+const StatusComp = ({ text, icon, statusId, getFunc, changeFunc, isExtra, snack }) => {
     const [isOn, setIsOn] = useState(false);
 
     const onStatusChange = () => {
         setIsOn(!isOn);
-        changeFunc(id=statusId).then(() => {
-            getFunc(id=statusId).then((json) => {
+        changeFunc(statusId, isExtra).then((response) => {
+
+            getFunc((id = statusId)).then((json) => {
                 setIsOn(Boolean(json));
             });
+
+            if (response != "OK") {
+                snack(String(response))
+            }
+  
         });
     };
 
     const onStart = useEffect(() => {
-        getFunc(id=statusId).then((json) => {
+        getFunc((id = statusId)).then((json) => {
             setIsOn(Boolean(json));
         });
     }, []);
 
     return (
         <View style={{ flex: 1, flexDirection: "row", marginBottom: 0 }}>
-            <Button
-                icon={icon}
-                textColor="#000000"
-                style={{ marginTop: 5 }}
-            >
-                {text} {statusId}
+            <Button icon={icon} textColor="#000000" style={{ marginTop: 5 }}>
+                {text} {statusId} {isExtra}
             </Button>
             <View style={{ flexGrow: 1 }} />
             <Switch

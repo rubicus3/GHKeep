@@ -8,7 +8,7 @@ const SettingComp = ({ settingId, text, icon, val, saveFunc, snack }) => {
 
     const newValueSave = () => {
         saveFunc(settingId, currentValue).then((response) => {
-            console.log(settingId, currentValue);
+            console.log(response);
             snack(response);
         })
     }

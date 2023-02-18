@@ -9,23 +9,23 @@ import HomeScreen from "./screens/Home";
 import SettingsScreen from "./screens/Settings";
 import ManageScreen from "./screens/Manage";
 import { ExtraContext } from "./Context";
+import { StatusBar } from 'expo-status-bar';
 
 const Tab = createMaterialBottomTabNavigator();
 
-
 export default function App() {
-
     const [extra, setExtra] = useState(false);
-    const value = { extra, setExtra }; 
+    const value = { extra, setExtra };
 
-    Platform.OS === "android"
-        ? NavigationBar.setBehaviorAsync("overlay-swipe")
-        : "";
+    NavigationBar.setVisibilityAsync("hidden");
+    NavigationBar.setBehaviorAsync("overlay-swipe");
+
 
     return (
         <ExtraContext.Provider value={value}>
             <Provider>
-                <NavigationContainer>
+                <StatusBar />
+                    <NavigationContainer>
                     <Tab.Navigator>
                         <Tab.Screen
                             name="Home"

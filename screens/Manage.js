@@ -26,7 +26,7 @@ export default function ManageScreen() {
     const onDismissSnackBar = () => setVisible(false);
 
     return (
-        <ScrollView scrollEnabled={false}>
+        <View style={{flex: 1}}>
             <Text variant="headlineMedium" style={{ padding: 15 }}>
                 Статус
             </Text>
@@ -75,6 +75,7 @@ export default function ManageScreen() {
                         borderRadius: 15,
                         borderWidth: 1,
                         padding: 5,
+                        marginBottom: 50
                     }}
                 >
                     Включён Экстренный Режим
@@ -96,6 +97,6 @@ export default function ManageScreen() {
             >
                 {snackContent}
             </Snackbar>
-        </ScrollView>
+        </View>
     );
 }

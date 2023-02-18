@@ -38,7 +38,7 @@ export default function SettingsScreen() {
     }, []);
 
     return (
-        <ScrollView scrollEnabled={false}>
+        <View style={{flex: 1}}>
             <Text variant="headlineMedium" style={{ padding: 15 }}>
                 Настройки
             </Text>
@@ -85,7 +85,7 @@ export default function SettingsScreen() {
             )}
 
             <Divider style={{ marginVertical: 50 }} />
-            <View style={{ justifyContent: "center", flexDirection: "row" }}>
+            <View style={{ justifyContent: "center", flexDirection: "row", marginBottom: 10 }}>
                 <ToggleButton
                     icon="alert"
                     value="alert"
@@ -114,6 +114,6 @@ export default function SettingsScreen() {
             >
                 {snackContent}
             </Snackbar>
-        </ScrollView>
+        </View>
     );
 }

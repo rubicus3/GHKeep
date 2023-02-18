@@ -112,7 +112,6 @@ export async function changeWateringState(id, isExtra) {
 }
 
 export async function changeTemperatureLimit(id, newValue) {
-    console.log(newValue);
     const response = await fetch(dblink + `/change_warnings_temp/${newValue}`, {
         method: "PUT",
     });

@@ -1,29 +1,37 @@
-const dblink = "http://45.90.216.58:1000";
+import { dblink, token } from "./Constants";
+
+const headers = {
+    token: token,
+};
 
 // Get requests
 
 export async function getTempHumGrpah() {
-    const response = await fetch(dblink + "/get_temp_hum_for_graphics");
+    const response = await fetch(
+        dblink + "/get_humidity_air_temperature_for_graphics"
+    );
     const json = await response.json();
 
     return json;
 }
 
 export async function getHbGrpah() {
-    const response = await fetch(dblink + "/get_hum_for_graphics");
+    const response = await fetch(dblink + "/get_humidity_soil_for_graphics");
     const json = await response.json();
 
     return json;
 }
 
 export async function getThTable() {
-    const response = await fetch(dblink + "/get_hum_temp_for_table");
+    const response = await fetch(
+        dblink + "/get_humidity_air_temperature_for_table"
+    );
     const json = await response.json();
     return json;
 }
 
 export async function getHbTable() {
-    const response = await fetch(dblink + "/get_hum_for_table");
+    const response = await fetch(dblink + "/get_humidity_soil_for_table");
     const json = await response.json();
     return json;
 }
@@ -41,25 +49,25 @@ export async function getAvgHumGraph() {
 }
 
 export async function getForkState() {
-    const response = await fetch(dblink + "/get_fork");
+    const response = await fetch(dblink + "/get_fork_state");
     const json = await response.json();
     return json;
 }
 
 export async function getHydrationState() {
-    const response = await fetch(dblink + "/get_total_hum");
+    const response = await fetch(dblink + "/get_total_hum_state");
     const json = await response.json();
     return json;
 }
 
 export async function getWateringState(id) {
-    const response = await fetch(dblink + `/get_watering/${id}`);
+    const response = await fetch(dblink + `/get_watering_system_state/${id}`);
     const json = await response.json();
     return json;
 }
 
 export async function getLimitValues() {
-    const response = await fetch(dblink + "/get_warnings");
+    const response = await fetch(dblink + "/get_warnings_states");
     const json = await response.json();
     return json;
 }
@@ -68,8 +76,11 @@ export async function getLimitValues() {
 
 export async function changeForkState(id, isExtra) {
     const response = await fetch(
-        dblink + `/change_fork/${isExtra ? "true" : "false"}`,
-        { method: "PUT" }
+        dblink + `/change_fork_state/${isExtra ? "true" : "false"}`,
+        { 
+            method: "PUT",
+            headers: headers
+        }
     );
 
     const json = await response.json();
@@ -82,9 +93,10 @@ export async function changeForkState(id, isExtra) {
 
 export async function changeHydrationState(id, isExtra) {
     const response = await fetch(
-        dblink + `/change_total_hum/${isExtra ? "true" : "false"}`,
+        dblink + `/change_total_hum_state/${isExtra ? "true" : "false"}`,
         {
             method: "PUT",
+            headers: headers,
         }
     );
 
@@ -98,9 +110,11 @@ export async function changeHydrationState(id, isExtra) {
 
 export async function changeWateringState(id, isExtra) {
     const response = await fetch(
-        dblink + `/change_watering/${id}/${isExtra ? "true" : "false"}`,
+        dblink +
+            `/change_watering_system_state/${id}/${isExtra ? "true" : "false"}`,
         {
             method: "PUT",
+            headers: headers,
         }
     );
     const json = await response.json();
@@ -112,9 +126,13 @@ export async function changeWateringState(id, isExtra) {
 }
 
 export async function changeTemperatureLimit(id, newValue) {
-    const response = await fetch(dblink + `/change_warnings_temp/${newValue}`, {
-        method: "PUT",
-    });
+    const response = await fetch(
+        dblink + `/change_temperature_warnings/${newValue}`,
+        {
+            method: "PUT",
+            headers: headers,
+        }
+    );
 
     const status = await response.status;
 
@@ -125,9 +143,13 @@ export async function changeTemperatureLimit(id, newValue) {
 }
 
 export async function changeHumidityLimit(id, newValue) {
-    const response = await fetch(dblink + `/change_warnings_h/${newValue}`, {
-        method: "PUT",
-    });
+    const response = await fetch(
+        dblink + `/change_humidity_air_warnings/${newValue}`,
+        {
+            method: "PUT",
+            headers: headers,
+        }
+    );
 
     const status = await response.status;
 
@@ -139,9 +161,10 @@ export async function changeHumidityLimit(id, newValue) {
 
 export async function changeHbLimit(id, newValue) {
     const response = await fetch(
-        dblink + `/change_warnings_hb/${id}/${newValue}`,
+        dblink + `/change_humidity_soil_warnings/${id}/${newValue}`,
         {
             method: "PUT",
+            headers: headers,
         }
     );
 

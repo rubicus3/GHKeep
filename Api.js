@@ -1,9 +1,15 @@
-const dblink = "http://172.29.173.106:8000";
+import { dblink, token } from "./Constants";
+
+const headers = {
+    token: token,
+};
 
 // Get requests
 
 export async function getTempHumGrpah() {
-    const response = await fetch(dblink + "/get_humidity_air_temperature_for_graphics");
+    const response = await fetch(
+        dblink + "/get_humidity_air_temperature_for_graphics"
+    );
     const json = await response.json();
 
     return json;
@@ -17,7 +23,9 @@ export async function getHbGrpah() {
 }
 
 export async function getThTable() {
-    const response = await fetch(dblink + "/get_humidity_air_temperature_for_table");
+    const response = await fetch(
+        dblink + "/get_humidity_air_temperature_for_table"
+    );
     const json = await response.json();
     return json;
 }
@@ -69,7 +77,10 @@ export async function getLimitValues() {
 export async function changeForkState(id, isExtra) {
     const response = await fetch(
         dblink + `/change_fork_state/${isExtra ? "true" : "false"}`,
-        { method: "PUT" }
+        { 
+            method: "PUT",
+            headers: headers
+        }
     );
 
     const json = await response.json();
@@ -85,6 +96,7 @@ export async function changeHydrationState(id, isExtra) {
         dblink + `/change_total_hum_state/${isExtra ? "true" : "false"}`,
         {
             method: "PUT",
+            headers: headers,
         }
     );
 
@@ -98,9 +110,11 @@ export async function changeHydrationState(id, isExtra) {
 
 export async function changeWateringState(id, isExtra) {
     const response = await fetch(
-        dblink + `/change_watering_system_state/${id}/${isExtra ? "true" : "false"}`,
+        dblink +
+            `/change_watering_system_state/${id}/${isExtra ? "true" : "false"}`,
         {
             method: "PUT",
+            headers: headers,
         }
     );
     const json = await response.json();
@@ -112,9 +126,13 @@ export async function changeWateringState(id, isExtra) {
 }
 
 export async function changeTemperatureLimit(id, newValue) {
-    const response = await fetch(dblink + `/change_temperature_warnings/${newValue}`, {
-        method: "PUT",
-    });
+    const response = await fetch(
+        dblink + `/change_temperature_warnings/${newValue}`,
+        {
+            method: "PUT",
+            headers: headers,
+        }
+    );
 
     const status = await response.status;
 
@@ -125,9 +143,13 @@ export async function changeTemperatureLimit(id, newValue) {
 }
 
 export async function changeHumidityLimit(id, newValue) {
-    const response = await fetch(dblink + `/change_humidity_air_warnings/${newValue}`, {
-        method: "PUT",
-    });
+    const response = await fetch(
+        dblink + `/change_humidity_air_warnings/${newValue}`,
+        {
+            method: "PUT",
+            headers: headers,
+        }
+    );
 
     const status = await response.status;
 
@@ -142,6 +164,7 @@ export async function changeHbLimit(id, newValue) {
         dblink + `/change_humidity_soil_warnings/${id}/${newValue}`,
         {
             method: "PUT",
+            headers: headers,
         }
     );
 

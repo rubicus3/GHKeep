@@ -35,29 +35,35 @@ export default function HomeScreen() {
     const [avgGraphHumData, setAvgGraphHumData] = useState(null);
 
     const onStart = useEffect(() => {
-        getThTable().then((json) => {
-            setThCurData(json);
-        });
+        const interval = setInterval(() => {
+            console.log("Fetch home api");
 
-        getHbTable().then((json) => {
-            setHbCurData(json);
-        });
+            getThTable().then((json) => {
+                setThCurData(json);
+            });
 
-        getTempHumGrpah().then((json) => {
-            setThGraphData(json);
-        });
+            getHbTable().then((json) => {
+                setHbCurData(json);
+            });
 
-        getHbGrpah().then((json) => {
-            setHbGraphData(json);
-        });
+            getTempHumGrpah().then((json) => {
+                setThGraphData(json);
+            });
 
-        getAvgTempGraph().then((json) => {
-            setAvgGraphTempData(json);
-        });
+            getHbGrpah().then((json) => {
+                setHbGraphData(json);
+            });
 
-        getAvgHumGraph().then((json) => {
-            setAvgGraphHumData(json);
-        });
+            getAvgTempGraph().then((json) => {
+                setAvgGraphTempData(json);
+            });
+
+            getAvgHumGraph().then((json) => {
+                setAvgGraphHumData(json);
+            });
+        }, 300000);
+
+        return () => clearInterval(interval);
     }, []);
 
     return (

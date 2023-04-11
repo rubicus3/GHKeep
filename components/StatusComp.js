@@ -27,7 +27,7 @@ const StatusComp = ({ text, icon, statusId, getFunc, changeFunc, isExtra, snack 
     }, []);
 
     return (
-        <View style={{ flex: 1, flexDirection: "row", marginBottom: 0 }}>
+        <View style={{ flexDirection: "row", marginBottom: 0, height: 60 }}>
             <Button icon={icon} textColor="#000000" style={{ marginTop: 5 }}>
                 {text} {statusId} {isExtra}
             </Button>

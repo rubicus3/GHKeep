@@ -14,6 +14,7 @@ import {
     changeTemperatureLimit,
     changeHumidityLimit,
     changeHbLimit,
+    getHbTable,
 } from "../Api";
 
 export default function SettingsScreen() {
@@ -38,7 +39,7 @@ export default function SettingsScreen() {
     }, []);
 
     return (
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
             <Text variant="headlineMedium" style={{ padding: 15 }}>
                 Настройки
             </Text>
@@ -85,7 +86,13 @@ export default function SettingsScreen() {
             )}
 
             <Divider style={{ marginVertical: 50 }} />
-            <View style={{ justifyContent: "center", flexDirection: "row", marginBottom: 10 }}>
+            <View
+                style={{
+                    justifyContent: "center",
+                    flexDirection: "row",
+                    marginBottom: 10,
+                }}
+            >
                 <ToggleButton
                     icon="alert"
                     value="alert"

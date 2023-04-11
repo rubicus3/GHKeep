@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Text, Divider, Snackbar } from "react-native-paper";
 import StatusComp from "../components/StatusComp";
@@ -10,6 +10,7 @@ import {
     changeForkState,
     changeHydrationState,
     changeWateringState,
+    getHbTable,
 } from "../Api";
 
 export default function ManageScreen() {
@@ -17,6 +18,13 @@ export default function ManageScreen() {
 
     const [snackContent, setSnackContent] = useState("OK");
     const [visible, setVisible] = useState(false);
+
+    const [hbCurData, setHbCurData] = useState(null);
+    const fetchHb = useEffect(() => {
+        getHbTable().then((json) => {
+            setHbCurData(json);
+        });
+    }, []);
 
     const onToggleSnackBar = (content) => {
         setSnackContent(content);
@@ -26,7 +34,7 @@ export default function ManageScreen() {
     const onDismissSnackBar = () => setVisible(false);
 
     return (
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
             <Text variant="headlineMedium" style={{ padding: 15 }}>
                 Статус
             </Text>
@@ -51,18 +59,22 @@ export default function ManageScreen() {
                 isExtra={extra}
                 snack={onToggleSnackBar}
             />
-            {[1, 2, 3, 4, 5, 6].map((id) => (  
-                <StatusComp
-                    key={id}
-                    text="Бороздка"
-                    icon="watering-can-outline"
-                    statusId={id}
-                    getFunc={getWateringState}
-                    changeFunc={changeWateringState}
-                    isExtra={extra}
-                    snack={onToggleSnackBar}
-                />
-            ))}
+            {hbCurData !== null ? (
+                [...Array(hbCurData.h_list.length)].map((x, id) => (
+                    <StatusComp
+                        key={id}
+                        text="Бороздка"
+                        icon="watering-can-outline"
+                        statusId={id + 1}
+                        getFunc={getWateringState}
+                        changeFunc={changeWateringState}
+                        isExtra={extra}
+                        snack={onToggleSnackBar}
+                    />
+                ))
+            ) : (
+                <></>
+            )}
 
             <View style={{ marginVertical: 30 }}></View>
 
@@ -75,7 +87,7 @@ export default function ManageScreen() {
                         borderRadius: 15,
                         borderWidth: 1,
                         padding: 5,
-                        marginBottom: 50
+                        marginBottom: 50,
                     }}
                 >
                     Включён Экстренный Режим

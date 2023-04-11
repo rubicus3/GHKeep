@@ -34,33 +34,38 @@ export default function HomeScreen() {
     const [avgGraphTempData, setAvgGraphTempData] = useState(null);
     const [avgGraphHumData, setAvgGraphHumData] = useState(null);
 
+    const fetchData = () => {
+        getThTable().then((json) => {
+            setThCurData(json);
+        });
+
+        getHbTable().then((json) => {
+            setHbCurData(json);
+        });
+
+        getTempHumGrpah().then((json) => {
+            setThGraphData(json);
+        });
+
+        getHbGrpah().then((json) => {
+            setHbGraphData(json);
+        });
+
+        getAvgTempGraph().then((json) => {
+            setAvgGraphTempData(json);
+        });
+
+        getAvgHumGraph().then((json) => {
+            setAvgGraphHumData(json);
+        });
+    };
+
     const onStart = useEffect(() => {
+        fetchData();
         const interval = setInterval(() => {
             console.log("Fetch home api");
 
-            getThTable().then((json) => {
-                setThCurData(json);
-            });
-
-            getHbTable().then((json) => {
-                setHbCurData(json);
-            });
-
-            getTempHumGrpah().then((json) => {
-                setThGraphData(json);
-            });
-
-            getHbGrpah().then((json) => {
-                setHbGraphData(json);
-            });
-
-            getAvgTempGraph().then((json) => {
-                setAvgGraphTempData(json);
-            });
-
-            getAvgHumGraph().then((json) => {
-                setAvgGraphHumData(json);
-            });
+            fetchData();
         }, 300000);
 
         return () => clearInterval(interval);

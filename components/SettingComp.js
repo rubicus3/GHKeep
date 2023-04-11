@@ -13,7 +13,7 @@ const SettingComp = ({ settingId, text, icon, val, saveFunc, snack }) => {
     }
 
     return (
-        <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+        <View style={{flexDirection: "row", alignItems: "center", height: 55 }}>
             <Button icon={icon} textColor="#000000" style={{ marginTop: 5 }}>
                 {text}
             </Button>

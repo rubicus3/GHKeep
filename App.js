@@ -1,15 +1,17 @@
-import React, { createContext, useContext, useState } from "react";
-import { Platform } from "react-native";
-import { Provider } from "react-native-paper";
+import React, { useState } from "react";
+import { Portal, Provider } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
+import { ExtraContext, storeIp } from "./Context";
+import { StatusBar } from "expo-status-bar";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import * as NavigationBar from "expo-navigation-bar";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeScreen from "./screens/Home";
 import SettingsScreen from "./screens/Settings";
 import ManageScreen from "./screens/Manage";
-import { ExtraContext } from "./Context";
-import { StatusBar } from 'expo-status-bar';
+import * as NavigationBar from "expo-navigation-bar";
+import { getIp } from "./Context";
+
+import TestScreen from "./screens/Test";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -20,51 +22,66 @@ export default function App() {
     NavigationBar.setVisibilityAsync("hidden");
     NavigationBar.setBehaviorAsync("overlay-swipe");
 
+    if (getIp() == null) storeIp("http://192.168.3.40:8000");
 
     return (
         <ExtraContext.Provider value={value}>
             <Provider>
                 <StatusBar />
+                <Portal>
                     <NavigationContainer>
-                    <Tab.Navigator>
-                        <Tab.Screen
-                            name="Home"
-                            component={HomeScreen}
-                            options={{
-                                tabBarIcon: () => (
-                                    <MaterialCommunityIcons
-                                        name="home"
-                                        size={26}
-                                    />
-                                ),
-                            }}
-                        />
-                        <Tab.Screen
-                            name="Manage"
-                            component={ManageScreen}
-                            options={{
-                                tabBarIcon: () => (
-                                    <MaterialCommunityIcons
-                                        name="tools"
-                                        size={26}
-                                    />
-                                ),
-                            }}
-                        />
-                        <Tab.Screen
-                            name="Settings"
-                            component={SettingsScreen}
-                            options={{
-                                tabBarIcon: () => (
-                                    <MaterialCommunityIcons
-                                        name="cog"
-                                        size={26}
-                                    />
-                                ),
-                            }}
-                        />
-                    </Tab.Navigator>
-                </NavigationContainer>
+                        <Tab.Navigator>
+                            <Tab.Screen
+                                name="Home"
+                                component={HomeScreen}
+                                options={{
+                                    tabBarIcon: () => (
+                                        <MaterialCommunityIcons
+                                            name="home"
+                                            size={26}
+                                        />
+                                    ),
+                                }}
+                            />
+                            <Tab.Screen
+                                name="Manage"
+                                component={ManageScreen}
+                                options={{
+                                    tabBarIcon: () => (
+                                        <MaterialCommunityIcons
+                                            name="tools"
+                                            size={26}
+                                        />
+                                    ),
+                                }}
+                            />
+                            <Tab.Screen
+                                name="Settings"
+                                component={SettingsScreen}
+                                options={{
+                                    tabBarIcon: () => (
+                                        <MaterialCommunityIcons
+                                            name="cog"
+                                            size={26}
+                                        />
+                                    ),
+                                }}
+                            />
+                            {/* <Tab.Screen
+                                name="Test"
+                                component={TestScreen}
+                                options={{
+                                    tabBarIcon: () => (
+                                        <MaterialCommunityIcons
+                                            name="cog"
+                                            size={26}
+                                        />
+                                    ),
+                                }}
+                            /> */}
+                        </Tab.Navigator>
+                    </NavigationContainer>
+                </Portal>
             </Provider>
         </ExtraContext.Provider>
     );

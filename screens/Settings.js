@@ -1,20 +1,22 @@
 import React, { useEffect, useState, useContext } from "react";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import {
     Text,
+    Dialog,
     Divider,
     Button,
     Snackbar,
     ToggleButton,
+    IconButton,
+    TextInput,
 } from "react-native-paper";
 import SettingComp from "../components/SettingComp";
-import { ExtraContext } from "../Context";
+import { ExtraContext, getIp, storeIp } from "../Context";
 import {
     getLimitValues,
     changeTemperatureLimit,
     changeHumidityLimit,
     changeHbLimit,
-    getHbTable,
 } from "../Api";
 
 export default function SettingsScreen() {
@@ -22,20 +24,40 @@ export default function SettingsScreen() {
 
     const [limits, setLimits] = useState(null);
 
-    const [visible, setVisible] = useState(false);
+    const [snackVisible, setSnackVisible] = useState(false);
     const [snackContent, setSnackContent] = useState("OK");
+
+    const [textInputState, setTextInputState] = useState("");
+
+    const [dialogVisible, setDialogVisible] = React.useState(false);
+
+    const showDialog = () => setDialogVisible(true);
+
+    const hideDialog = () => setDialogVisible(false);
 
     const onToggleSnackBar = (content) => {
         setSnackContent(content);
-        setVisible(!visible);
+        setSnackVisible(!snackVisible);
     };
 
-    const onDismissSnackBar = () => setVisible(false);
+    const onDismissSnackBar = () => setSnackVisible(false);
+
+    const onDialogCancel = () => {
+        hideDialog();
+        setTextInputState(getIp());
+    } 
+
+    const onDialogSave = () => {
+        hideDialog();
+        onToggleSnackBar('Перезапустите приложение, чтобы изменения вошли в силу.');
+        storeIp(textInputState);
+    };
 
     const onStart = useEffect(() => {
         getLimitValues().then((json) => {
             setLimits(json);
         });
+        setTextInputState(getIp());
     }, []);
 
     return (
@@ -108,8 +130,33 @@ export default function SettingsScreen() {
                     Экстренный Режим
                 </Text>
             </View>
+
+            <View
+                style={{
+                    justifyContent: "center",
+                    flexDirection: "row",
+                    marginBottom: 10,
+                }}
+            >
+                <IconButton icon="cog" onPress={showDialog} />
+                <Text variant="titleMedium" style={{ paddingTop: 12 }}>
+                    Настройки IP-Адреса
+                </Text>
+            </View>
+
+            <Dialog visible={dialogVisible} onDismiss={onDialogCancel}>
+                <Dialog.Title>Настройки IP</Dialog.Title>
+                <Dialog.Content>
+                    <TextInput mode='flat' value={textInputState} onChangeText={text => setTextInputState(text)} />
+                </Dialog.Content>
+                <Dialog.Actions>
+                    <Button onPress={onDialogSave}>Сохранить</Button>
+                    <Button onPress={onDialogCancel}>Отмена</Button>
+                </Dialog.Actions>
+            </Dialog>
+
             <Snackbar
-                visible={visible}
+                visible={snackVisible}
                 duration={3000}
                 onDismiss={onDismissSnackBar}
                 action={{

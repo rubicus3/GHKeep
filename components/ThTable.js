@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { DataTable } from "react-native-paper";
+import { getThTable } from "../Api";
 
-const ThTable = ({ tData = [0, 0, 0, 0], hData = [0, 0, 0, 0] }) => {
+const ThTable = () => {
+    const [tData, setTData] = useState([0, 0, 0, 0]);
+    const [hData, setHData] = useState([0, 0, 0, 0]);
+
+    const fetchData = () => {
+        getThTable().then((json) => {
+            setTData(json.t_list);
+            setHData(json.h_list);
+        });
+    };
+
+    const onStart = useEffect(() => {
+        fetchData();
+
+        const interval = setInterval(() => {
+            fetchData();
+        }, 30000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <View
             style={{

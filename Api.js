@@ -1,11 +1,13 @@
-import { dblink, token } from "./Constants";
+import { storeIp, getIp } from "./Context";
+
+var dblink = "http://192.168.3.40:8000";
+const token = "123";
 
 const headers = {
     token: token,
 };
 
 // Get requests
-
 export async function getTempHumGrpah() {
     const response = await fetch(
         dblink + "/get_humidity_air_temperature_for_graphics"
@@ -23,6 +25,7 @@ export async function getHbGrpah() {
 }
 
 export async function getThTable() {
+
     const response = await fetch(
         dblink + "/get_humidity_air_temperature_for_table"
     );
@@ -77,9 +80,9 @@ export async function getLimitValues() {
 export async function changeForkState(id, isExtra) {
     const response = await fetch(
         dblink + `/change_fork_state/${isExtra ? "true" : "false"}`,
-        { 
+        {
             method: "PUT",
-            headers: headers
+            headers: headers,
         }
     );
 

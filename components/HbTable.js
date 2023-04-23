@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { DataTable } from "react-native-paper";
+import { getHbTable } from "../Api.js";
 
-const HbTable = ({ data = [0, 0, 0, 0, 0, 0] }) => {
+const HbTable = () => {
+    const [data, setData] = useState([0, 0, 0, 0, 0, 0]);
+
+    const onStart = useEffect(() => {
+        getHbTable().then((json) => {
+            setData(json.h_list);
+        });
+
+        const interval = setInterval(() => {
+            getHbTable().then((json) => {
+                setData(json.h_list);
+            });
+        }, 30000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <View
             style={{

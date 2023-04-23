@@ -25,9 +25,6 @@ const grpahScrollProps = {
 };
 
 export default function HomeScreen() {
-    const [thCurData, setThCurData] = useState(null);
-    const [hbCurData, setHbCurData] = useState(null);
-
     const [thGraphData, setThGraphData] = useState(null);
     const [hbGraphData, setHbGraphData] = useState(null);
 
@@ -35,14 +32,6 @@ export default function HomeScreen() {
     const [avgGraphHumData, setAvgGraphHumData] = useState(null);
 
     const fetchData = () => {
-        getThTable().then((json) => {
-            setThCurData(json);
-        });
-
-        getHbTable().then((json) => {
-            setHbCurData(json);
-        });
-
         getTempHumGrpah().then((json) => {
             setThGraphData(json);
         });
@@ -80,20 +69,12 @@ export default function HomeScreen() {
             <Divider />
 
             {/* Таблица текущих данных о влажности температуры и влажности с 4-х датчиков */}
-            {thCurData !== null ? (
-                <ThTable tData={thCurData.t_list} hData={thCurData.h_list} />
-            ) : (
-                <ThTable />
-            )}
+            <ThTable />
 
             <View style={styles.Divider} />
 
             {/* Таблица текущих данных о влажности почвы с 6-и датчиков */}
-            {hbCurData !== null ? (
-                <HbTable data={hbCurData.h_list} />
-            ) : (
-                <HbTable />
-            )}
+            <HbTable />
 
             <View style={styles.Divider} />
 

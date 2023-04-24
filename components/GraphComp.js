@@ -22,11 +22,11 @@ const GraphComp = ({
                             data: data,
                         },
                         {
-                            data: [0], // Set Min
+                            data: [Math.max(...data) + 5], // Set Min
                             withDots: false, // Hide Dots
                         },
                         {
-                            data: [50], // Set Max
+                            data: [Math.min(...data) - 5], // Set Max
                             withDots: false, // Hide Dots
                         },
                     ],

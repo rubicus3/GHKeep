@@ -10,7 +10,7 @@ const GraphComp = ({
     time = ["00:00", "00:00", "00:00", "00:00", "00:00"],
 }) => {
     return (
-        <View style={{backgroundColor: "ababab"}}>
+        <View style={{ backgroundColor: "ababab" }}>
             <Text variant="titleMedium" style={{ marginLeft: 15 }}>
                 {id}
             </Text>
@@ -20,6 +20,14 @@ const GraphComp = ({
                     datasets: [
                         {
                             data: data,
+                        },
+                        {
+                            data: [0], // Set Min
+                            withDots: false, // Hide Dots
+                        },
+                        {
+                            data: [50], // Set Max
+                            withDots: false, // Hide Dots
                         },
                     ],
                 }}

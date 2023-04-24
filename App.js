@@ -11,8 +11,6 @@ import ManageScreen from "./screens/Manage";
 import * as NavigationBar from "expo-navigation-bar";
 import { getIp } from "./Context";
 
-import TestScreen from "./screens/Test";
-
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
@@ -22,7 +20,9 @@ export default function App() {
     NavigationBar.setVisibilityAsync("hidden");
     NavigationBar.setBehaviorAsync("overlay-swipe");
 
-    if (getIp() == null) storeIp("http://192.168.3.40:8000");
+    getIp().then((ip) => {
+        if (ip == null) storeIp("http://192.168.3.40:8000");
+    });
 
     return (
         <ExtraContext.Provider value={value}>
@@ -67,18 +67,6 @@ export default function App() {
                                     ),
                                 }}
                             />
-                            {/* <Tab.Screen
-                                name="Test"
-                                component={TestScreen}
-                                options={{
-                                    tabBarIcon: () => (
-                                        <MaterialCommunityIcons
-                                            name="cog"
-                                            size={26}
-                                        />
-                                    ),
-                                }}
-                            /> */}
                         </Tab.Navigator>
                     </NavigationContainer>
                 </Portal>

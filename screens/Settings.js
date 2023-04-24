@@ -44,12 +44,18 @@ export default function SettingsScreen() {
 
     const onDialogCancel = () => {
         hideDialog();
-        setTextInputState(getIp());
-    } 
+
+        getIp().then((ip) => {
+            setTextInputState(ip);
+        });
+    };
 
     const onDialogSave = () => {
         hideDialog();
-        onToggleSnackBar('Перезапустите приложение, чтобы изменения вошли в силу.');
+
+        onToggleSnackBar(
+            "Перезапустите приложение, чтобы изменения вошли в силу."
+        );
         storeIp(textInputState);
     };
 
@@ -57,7 +63,10 @@ export default function SettingsScreen() {
         getLimitValues().then((json) => {
             setLimits(json);
         });
-        setTextInputState(getIp());
+
+        getIp().then((ip) => {
+            setTextInputState(ip);
+        });
     }, []);
 
     return (
@@ -147,7 +156,11 @@ export default function SettingsScreen() {
             <Dialog visible={dialogVisible} onDismiss={onDialogCancel}>
                 <Dialog.Title>Настройки IP</Dialog.Title>
                 <Dialog.Content>
-                    <TextInput mode='flat' value={textInputState} onChangeText={text => setTextInputState(text)} />
+                    <TextInput
+                        mode="flat"
+                        value={textInputState}
+                        onChangeText={(text) => setTextInputState(text)}
+                    />
                 </Dialog.Content>
                 <Dialog.Actions>
                     <Button onPress={onDialogSave}>Сохранить</Button>
